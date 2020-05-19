@@ -2,7 +2,7 @@
 ldl cholesterol regression using deep learning
 
 - 6 Dense Layer (30 parameter each)
-- Link: [paper]https://google.com
+- paper: https://sciencedirect.com/science/article/abs/pii/S000989811830603X
 
 ## Environment
 
