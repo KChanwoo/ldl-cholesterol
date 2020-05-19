@@ -106,6 +106,10 @@ class DNN:
 
 
 class DNN_tf:
+    """
+    cholesterol regression model
+    use tensorflow 2.1 library
+    """
 
     def __init__(self, main_data_path):
         self._main_data_path = main_data_path
@@ -116,6 +120,9 @@ class DNN_tf:
         self.build_model()
 
     def load_file(self):
+        """
+        load data file
+        """
         with open('{}/ldl-total-2020-05-17-2.txt'.format(self._main_data_path), 'r') as f:
             lines = f.readlines()
             for line in lines:
@@ -131,6 +138,12 @@ class DNN_tf:
                 self._test_data[1].append(DNN.strarr_to_float(splits[:3]))
 
     def build_model(self):
+        """
+        build model
+        1. keras input layer (3)
+        2. 6 kears Dense layers (30) -> use relu activation
+        3. keras Dense layer (1) -> output
+        """
         inputs = tf.keras.layers.Input([3], dtype=tf.float64)
         hidden = inputs
         for i in range(6):
@@ -141,9 +154,18 @@ class DNN_tf:
         self._model.load_weights('{}/checkpoints/cholesterol_9100.tf'.format(self._main_data_path))
 
     def predict(self, input):
+        """
+        prediction
+        :param input: 3-input values
+        :return: one output (ldl cholesterol)
+        """
         return self._model(np.array([input['x']]), training=False).numpy()[0][0]
 
     def test(self):
+        """
+        testing
+        print MSE cost from test data set
+        """
         avg_loss = tf.keras.metrics.Mean('loss', dtype=tf.float32)
         res = self._model(np.array(self._test_data[1]), training=False)
 

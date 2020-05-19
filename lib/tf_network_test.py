@@ -4,6 +4,7 @@ import numpy as np
 from lib.network import DNN
 
 with tf.device('/cpu:0'):
+    # build model
     inputs = tf.keras.layers.Input([3], dtype=tf.float64)
     hidden = inputs
     for i in range(6):
@@ -11,6 +12,8 @@ with tf.device('/cpu:0'):
     outputs = tf.keras.layers.Dense(1)(hidden)
 
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
+
+    # load data
 
     test_data = [[], []]
     with open('{}/ldl-total-2020-05-17-2.txt'.format('../data'), 'r') as f:
@@ -22,6 +25,7 @@ with tf.device('/cpu:0'):
             if len(test_data[0]) == 100:
                 break
 
+    # set testing variable
     avg_loss = tf.keras.metrics.Mean('loss', dtype=tf.float32)
 
     min_avg_loss = 100000
