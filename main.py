@@ -15,6 +15,7 @@ from lib.network import DNN, DNN_tf
 # dnn.test()  # test test-data
 
 dnn_tf = DNN_tf('./data')
+dnn_tf.show_summary()
 predict = dnn_tf.predict({'x': [152, 61.756, 30]})
 print(predict)
 # dnn_tf.test() # calculate cost from 4520 test data (using mse)

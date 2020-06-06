@@ -153,6 +153,9 @@ class DNN_tf:
         self._model = tf.keras.Model(inputs=inputs, outputs=outputs)
         self._model.load_weights('{}/checkpoints/cholesterol_9100.tf'.format(self._main_data_path))
 
+    def show_summary(self):
+        self._model.summary()
+
     def predict(self, input):
         """
         prediction
@@ -165,6 +168,7 @@ class DNN_tf:
         """
         testing
         print MSE cost from test data set
+        :return loss
         """
         avg_loss = tf.keras.metrics.Mean('loss', dtype=tf.float32)
         res = self._model(np.array(self._test_data[1]), training=False)
@@ -176,3 +180,5 @@ class DNN_tf:
         print(avg_loss.result().numpy())
 
         avg_loss.reset_states()
+
+        return loss, res
